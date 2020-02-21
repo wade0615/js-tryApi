@@ -27,7 +27,46 @@
 </style>
 
 <script>
+    var lat;
+    var lon;
 
+    function getWeather() {
+        xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            var response = JSON.parse(this.responseText);
+            var city = response.city.name + ", " + response.city.country;
+            var weatherTitle = response.list[0].weather[0].main;
+            var temp = response.list[0].main.temp + "°";
+
+            var weatherContainer = document.querySelector("#weather");
+            weatherContainer.innerHTML = city + "<br/>" + weatherTitle + "<br/>" + temp;
+        };
+        xhr.open(
+            "GET",
+            "http://api.openweathermap.org/data/2.5/forecast?APPID=77c60ed4e299decbb6b97e90264426ca&lang=zh-TW&units=metric" + lat + lon, 
+            true
+        );
+        xhr.send();
+    }
+
+    function getLocation() {
+        xhr = new XMLHttpRequest();
+        xhr.open(
+            "POST",
+            "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDIHHXeYB_Hsf21AAaQX8qd5Y2NDsckUbI",
+            true
+        );
+        xhr.onload = function() {
+            // do something
+            var response = JSON.parse(this.responseText);
+            lat = "&lat=" + response.location.lat;
+            lon = "&lon=" + response.location.lng;
+            getWeather();
+        };
+        xhr.send();
+    }
+
+    getLocation();
 
 </script>
 
