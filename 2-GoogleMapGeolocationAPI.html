@@ -59,6 +59,7 @@
         xhr.onload = function() {
             // do something
             var response = JSON.parse(this.responseText);
+            console.log(response);
             lat = "&lat=" + response.location.lat;
             lon = "&lon=" + response.location.lng;
             getWeather();
