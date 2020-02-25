@@ -1,0 +1,22 @@
+<html>
+<head>
+    <!--在 HTML Head 裡面置入 mapbox-gl.js 跟 mapbox-gl.css --> 
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+
+<body>
+    <!--放一個有 id 的 container，等等用 script 載入地圖，要記得指定寬跟高 --> 
+    <div id='map' style='width: 80vw; height: 100vh;'></div>
+    
+    <script>
+      // 在 Mapbox Studio 裡面得到的 Access Token 放在下方
+        mapboxgl.accessToken = 'pk.eyJ1Ijoid3N3YWRlIiwiYSI6ImNrNzFqZWV0ZzA2bDgzbG1kMGE3YWE3azQifQ.LHYMCmAx9hcgmt1Ql1omsw';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        // 在 Mapbox Studio 裡面製作的 Style 得到的 Style Url
+        style: 'mapbox://styles/mapbox/streets-v11'
+        });
+    </script>
+</body>
+</html>
