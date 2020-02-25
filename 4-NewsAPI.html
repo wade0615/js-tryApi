@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>關於 Web API 的 20 條新聞</h1>
-    <div id="container"></div>
+    <div id="newsTitle"></div>
 
 <style>
     body {
@@ -14,8 +14,37 @@
         background-color: #ddd;
     }
 </style>
-
+<!-- a71bd2b9477341b9b499a10d16777d69 -->
 <script>
+    var url = 'http://newsapi.org/v2/top-headlines?' +
+            'sources=bbc-news&' +
+            'apiKey=a71bd2b9477341b9b499a10d16777d69';
+
+    var req = new Request(url);
+    fetch(req)
+        .then(function(response) {
+            console.log(response.json());
+        })
+
+
+    function makeRequest() {
+        xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+        var response = JSON.parse(this.responseText); 
+        console.log(response);
+
+        var articles = response.articles
+        var newsTitle = document.querySelector("#newsTitle");
+        articles.forEach(element => 
+        newsTitle.insertAdjacentHTML('beforeend', "<h2>" + element.title + "</h2>" + "<br/>")
+        )
+
+        };
+    xhr.open("GET",url);
+    xhr.send();
+    }
+
+    makeRequest();
 
 </script>
 
