@@ -18,7 +18,33 @@
 </style>
 
 <script>
-    
+    const url = "https://api.unsplash.com/photos/" +
+        "?client_id=IyKRqS8tFHO8zXuHfXSq9nDynNO7pzfvqSYCLofIdS0" +
+        "&per_page=30";//阿就url啊
+
+    const utm = "&utm_source=Photo-app&utm_medium=referral";//這個是只抓垂直照片的啦
+
+    var container = document.querySelector("#container");
+
+    function makeRequest() {
+        xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            var response = JSON.parse(this.responseText);
+            console.log(response);
+            for (var i = 0; i < response.length; i++) {
+            if (response[i].height > response[i].width) {
+                var img = document.createElement("img");
+                img.setAttribute("src", response[i].urls.thumb + utm);
+                container.appendChild(img);
+                } 
+            }
+        };
+        xhr.open("GET", url, true);
+        xhr.send();
+    }
+
+        makeRequest();
+
 </script>
 </body>
 </html>
