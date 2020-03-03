@@ -7,13 +7,17 @@
 </head>
 
 <body>
+    <!-- <div class="img"></div>
     <div class="img"></div>
-    <div class="img"></div>
-    <div class="img"></div>
+    <div class="img"></div> -->
 
     <style>
         .img {
             display:inline-block;
+        }
+        a {
+            display: block;
+            font-size: 0;
         }
         img {
             width: 30vw;
@@ -26,30 +30,44 @@
         // 先抓到DOM中的 .img
         var imgBoxes = document.querySelectorAll(".img");
 
-        // 用 XMLHttpRequest 發API 
+        // 用 element script 發 request
         function sendRequest() {
             var scriptTag = document.createElement("script");
             scriptTag.src = url;
             document.body.appendChild(scriptTag);
         }
 
-
         function myCallback(response) {
+            console.log(response);
         
-            function createImg(i){
-                var cover = document.createElement("img");
-                var url2img = document.createElement("a");
+            // function createImg(i){
+            //     var cover = document.createElement("img");
+            //     var url2img = document.createElement("a");
                 
-                cover.src = response.projects[i].covers.original;
-                url2img.href = response.projects[i].url;
+            //     cover.src = response.projects[i].covers.original;
+            //     url2img.href = response.projects[i].url;
                 
-                imgBoxes[i].appendChild(url2img);
-                url2img.appendChild(cover);
-            }
+            //     imgBoxes[i].appendChild(url2img);
+            //     url2img.appendChild(cover);
+            // }
 
-            for(var i = 0; i < 3; i++){
-                createImg(i);
-            }
+            // for(var i = 0; i < 3; i++){
+            //     createImg(i);
+            // }
+
+            response.projects.forEach(e => {
+                var blockBox = document.createElement("div");
+                blockBox.setAttribute("class", "img");
+                var url2img = document.createElement("a");
+                var cover = document.createElement("img");
+
+                cover.src = e.covers.original;
+                url2img.href = e.url;
+
+                document.body.appendChild(blockBox);
+                blockBox.appendChild(url2img);
+                url2img.appendChild(cover);
+            })
         }
 
         sendRequest();
