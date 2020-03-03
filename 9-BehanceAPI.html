@@ -15,10 +15,45 @@
         .img {
             display:inline-block;
         }
+        img {
+            width: 30vw;
+        }
     </style>
 
     <script>
+        var url = "https://api.behance.net/v2/users/Filiphds/projects?client_id=XrTXvo7P59I8TcXEqP0DDRgxi6Jmx5Rd&callback=myCallback";
+
+        // 先抓到DOM中的 .img
+        var imgBoxes = document.querySelectorAll(".img");
+
+        // 用 XMLHttpRequest 發API 
+        function sendRequest() {
+            var scriptTag = document.createElement("script");
+            scriptTag.src = url;
+            document.body.appendChild(scriptTag);
+        }
+
+
+        function myCallback(response) {
         
+            function createImg(i){
+                var cover = document.createElement("img");
+                var url2img = document.createElement("a");
+                
+                cover.src = response.projects[i].covers.original;
+                url2img.href = response.projects[i].url;
+                
+                imgBoxes[i].appendChild(url2img);
+                url2img.appendChild(cover);
+            }
+
+            for(var i = 0; i < 3; i++){
+                createImg(i);
+            }
+        }
+
+        sendRequest();
+
     </script>
 
 </body>
