@@ -9,9 +9,15 @@
     <h1 class="date"></h1>
     <div class="container">
         <div class="bitcoin">1 Bitcoin =</div>
-        <div class="usd"></div>
-        <div class="or">OR</div>
-        <div class="twd"></div>
+        <div class="bit_usd"></div>
+        <div>OR</div>
+        <div class="bit_twd"></div>
+    </div>
+    <div class="container">
+        <div class="ethereum">1 ETH =</div>
+        <div class="eth_usd"></div>
+        <div>OR</div>
+        <div class="eth_twd"></div>
     </div>
 
     <style>
@@ -24,10 +30,15 @@
     </style>
 
     <script>
-        var currency = "BTC";
-        var url = "https://api.coinbase.com/v2/exchange-rates?currency=" + currency;
-        var usd = document.querySelector(".usd");
-        var twd = document.querySelector(".twd");
+        var btcCurrency = "BTC";
+        var ethCurrency = "ETH";
+        var btcUrl = "https://api.coinbase.com/v2/exchange-rates?currency=" + btcCurrency;
+        var ethUrl = "https://api.coinbase.com/v2/exchange-rates?currency=" + ethCurrency;
+        
+        var bitUsd = document.querySelector(".bit_usd");
+        var bitTwd = document.querySelector(".bit_twd");
+        var ethUsd = document.querySelector(".eth_usd");
+        var ethTwd = document.querySelector(".eth_twd");
         const date = document.querySelector('.date');
 
         const currentTime = new Date();
@@ -38,21 +49,7 @@
         console.log(nowDate);
         date.innerHTML = nowDate;
 
-        // function makeRequest() {
-        //     xhr = new XMLHttpRequest();
-
-        //     xhr.onload = function() {
-        //         var response = JSON.parse(this.responseText);
-        //         usd.innerHTML = response.data.rates.USD + " USD";
-        //         twd.innerHTML = response.data.rates.TWD + " TWD";
-        //     };
-        //     xhr.open("GET", url, true);
-        //     xhr.setRequestHeader("CB-VERSION", "2018-01-01");
-        //     xhr.send();
-        // }
-        // makeRequest();
-
-        fetch(url, {
+        fetch(btcUrl, {
             method: 'GET',
             headers: {
                 "CB-VERSION": nowDate
@@ -60,8 +57,24 @@
         })
             .then(response => response.json())
             .then(response => {
-                usd.innerHTML = response.data.rates.USD + " USD";
-                twd.innerHTML = response.data.rates.TWD + " TWD";
+                console.log(response);
+                bitUsd.innerHTML = response.data.rates.USD + " USD";
+                bitTwd.innerHTML = response.data.rates.TWD + " TWD";
+                // console.log("I'm fetch");
+            })
+            .catch( () => console.log('Something Wrong'))
+
+        fetch(ethUrl, {
+            method: 'GET',
+            headers: {
+                "CB-VERSION": nowDate
+            },
+        })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                ethUsd.innerHTML = response.data.rates.USD + " USD";
+                ethTwd.innerHTML = response.data.rates.TWD + " TWD";
                 // console.log("I'm fetch");
             })
             .catch( () => console.log('Something Wrong'))
