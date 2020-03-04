@@ -27,6 +27,7 @@
         var url = "https://api.coinbase.com/v2/exchange-rates?currency=" + currency;
         var usd = document.querySelector(".usd");
         var twd = document.querySelector(".twd");
+
         function makeRequest() {
             xhr = new XMLHttpRequest();
 
@@ -39,7 +40,22 @@
             xhr.setRequestHeader("CB-VERSION", "2018-01-01");
             xhr.send();
         }
-        makeRequest();
+        // makeRequest();
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                "CB-VERSION": "2018-01-01"
+            },
+        })
+            .then(response => response.json())
+            .then(response => {
+                usd.innerHTML = response.data.rates.USD + " USD";
+                twd.innerHTML = response.data.rates.TWD + " TWD";
+                console.log("I'm fetch");
+            })
+            .catch( () => console.log('wrong'))
+        
     </script>
 </body>
 </html>
