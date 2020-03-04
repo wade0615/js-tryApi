@@ -6,6 +6,7 @@
     <title>14-Coinbase API</title>
 </head>
 <body>
+    <h1 class="date"></h1>
     <div class="container">
         <div class="bitcoin">1 Bitcoin =</div>
         <div class="usd"></div>
@@ -27,6 +28,7 @@
         var url = "https://api.coinbase.com/v2/exchange-rates?currency=" + currency;
         var usd = document.querySelector(".usd");
         var twd = document.querySelector(".twd");
+        const date = document.querySelector('.date');
 
         const currentTime = new Date();
         const currentYear = currentTime.getFullYear();
@@ -34,6 +36,7 @@
         const currentDate = currentTime.getDate();
         const nowDate = `${currentYear}-${currentMonth}-${currentDate}`
         console.log(nowDate);
+        date.innerHTML = nowDate;
 
         // function makeRequest() {
         //     xhr = new XMLHttpRequest();
