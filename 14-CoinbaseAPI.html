@@ -28,33 +28,40 @@
         var usd = document.querySelector(".usd");
         var twd = document.querySelector(".twd");
 
-        function makeRequest() {
-            xhr = new XMLHttpRequest();
+        const currentTime = new Date();
+        const currentYear = currentTime.getFullYear();
+        const currentMonth = currentTime.getMonth() + 1;
+        const currentDate = currentTime.getDate();
+        const nowDate = `${currentYear}-${currentMonth}-${currentDate}`
+        console.log(nowDate);
 
-            xhr.onload = function() {
-                var response = JSON.parse(this.responseText);
-                usd.innerHTML = response.data.rates.USD + " USD";
-                twd.innerHTML = response.data.rates.TWD + " TWD";
-            };
-            xhr.open("GET", url, true);
-            xhr.setRequestHeader("CB-VERSION", "2018-01-01");
-            xhr.send();
-        }
+        // function makeRequest() {
+        //     xhr = new XMLHttpRequest();
+
+        //     xhr.onload = function() {
+        //         var response = JSON.parse(this.responseText);
+        //         usd.innerHTML = response.data.rates.USD + " USD";
+        //         twd.innerHTML = response.data.rates.TWD + " TWD";
+        //     };
+        //     xhr.open("GET", url, true);
+        //     xhr.setRequestHeader("CB-VERSION", "2018-01-01");
+        //     xhr.send();
+        // }
         // makeRequest();
 
         fetch(url, {
             method: 'GET',
             headers: {
-                "CB-VERSION": "2018-01-01"
+                "CB-VERSION": nowDate
             },
         })
             .then(response => response.json())
             .then(response => {
                 usd.innerHTML = response.data.rates.USD + " USD";
                 twd.innerHTML = response.data.rates.TWD + " TWD";
-                console.log("I'm fetch");
+                // console.log("I'm fetch");
             })
-            .catch( () => console.log('wrong'))
+            .catch( () => console.log('Something Wrong'))
         
     </script>
 </body>
