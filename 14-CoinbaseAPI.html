@@ -49,6 +49,19 @@
         console.log(nowDate);
         date.innerHTML = nowDate;
 
+        function price (e){
+            var integer = e.split('.');
+            var decimal = integer[1].split('');
+            if ( decimal[1] === undefined){
+                decimal = decimal[0]
+            } else {
+                decimal = `${decimal[0]}${decimal[1]}`;
+            }
+            const price = `${integer[0]}.${decimal}`;
+            // console.log(price);
+            return price
+        }
+
         fetch(btcUrl, {
             method: 'GET',
             headers: {
@@ -58,8 +71,10 @@
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                bitUsd.innerHTML = response.data.rates.USD + " USD";
-                bitTwd.innerHTML = response.data.rates.TWD + " TWD";
+                // bitUsd.innerHTML = response.data.rates.USD + " USD";
+                // bitTwd.innerHTML = response.data.rates.TWD + " TWD";
+                bitUsd.innerHTML = price(response.data.rates.USD) + " USD";
+                bitTwd.innerHTML = price(response.data.rates.TWD) + " TWD";
                 // console.log("I'm fetch");
             })
             .catch( () => console.log('Something Wrong'))
@@ -73,8 +88,8 @@
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                ethUsd.innerHTML = response.data.rates.USD + " USD";
-                ethTwd.innerHTML = response.data.rates.TWD + " TWD";
+                ethUsd.innerHTML = price(response.data.rates.USD) + " USD";
+                ethTwd.innerHTML = price(response.data.rates.TWD) + " TWD";
                 // console.log("I'm fetch");
             })
             .catch( () => console.log('Something Wrong'))
